@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class Country: Codable {
+    var originalName: String
+    var borders: [String]?
+    var alpha3Code: String
+    var region: String
+}
