@@ -9,16 +9,9 @@
 import Foundation
 
 extension BidirectionalCollection where Element: StringProtocol {
-   
     var joinedWithCommas: String {
-        guard let last = last else { return "" }
-        return dropLast().joined(separator: ",")
+        guard last != nil else { return "" }
+        return dropLast().joined(separator: ", ")
     }
 }
 
-//var concatinateBordersList {
-//    let joiner = ":"
-//    let elements = ["one", "two", "three"]
-//    let joinedStrings = elements.joined(separator: joiner)
-//    print("joinedStrings: \(joinedStrings)")
-//}
