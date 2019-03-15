@@ -11,7 +11,7 @@ import Foundation
 extension BidirectionalCollection where Element: StringProtocol {
     var joinedWithCommas: String {
         guard last != nil else { return "" }
-        return dropLast().joined(separator: ", ")
+        return String(self.joined(separator: ", "))
     }
 }
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class CountryDetailsTableViewController: UITableViewController {
     static let indentifier = "CountryDetailsController"
@@ -16,17 +17,10 @@ class CountryDetailsTableViewController: UITableViewController {
     @IBOutlet weak var bordersLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
 
-    @IBOutlet weak var flagImageView: UIImageView!
     
-    var country: Country! {
-        didSet {
-            processNewData()
-        }
-    }
+    var country: Country!
     var bordersList: [String] = []
     
-    private let defaultFlagImage = #imageLiteral(resourceName: "icon-earth-globe")
-
 
     //MARK: - View Cicle
     override func viewDidLoad() {
@@ -44,11 +38,6 @@ class CountryDetailsTableViewController: UITableViewController {
     
 
     //MARK: - Private
-    private func processNewData() {
-        loadAdditionalData()
-    }
-    
-    
     private func showBordersList() {
         if bordersList.isEmpty {
             self.bordersLabel.text = "No country borders to show"
@@ -57,24 +46,14 @@ class CountryDetailsTableViewController: UITableViewController {
         }
     }
     
-    private func loadAdditionalData() {
-        guard let flagStringURL = country.flag else {
-            flagImageView.image = defaultFlagImage
-            return
-        }
-        
-        NetworkManager().downloadImage(for: flagStringURL) { (image) in
-            DispatchQueue.main.async {
-                if let flag = image {
-                    self.flagImageView.image = flag
-                } else {
-                    self.flagImageView.image = self.defaultFlagImage
-                }
-            }
-        }
+    //MARK: - table view
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 
 }
+
+
 
 
 

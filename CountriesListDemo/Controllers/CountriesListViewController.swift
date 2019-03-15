@@ -51,6 +51,7 @@ class CountriesListViewController: UIViewController {
         super.viewDidLoad()
         setupSearchController()
         
+        //load our data and cache it
         NetworkManager().fetchAllCountriesList { (countriesFromRequest) in
             self.countries = countriesFromRequest ?? []
         }

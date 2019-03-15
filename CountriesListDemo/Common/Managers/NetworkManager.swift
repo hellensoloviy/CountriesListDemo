@@ -22,42 +22,6 @@ class NetworkManager {
     //MARK: - Properties
     weak var delegate: NetworkManagerDelegate?
     private let baseURlString = "https://restcountries.eu/rest/v2/"
-
-    
-    //MARK: - Public Functions
-    func downloadImage(for string: String, completion: @escaping (UIImage?) -> Void) {
-        guard let catPictureURL = URL(string: string) else {
-            print("image URL-string is not correct: \(string)")
-            completion(nil)
-            return
-        }
-        
-        let downloadPicTask = URLSession.shared.dataTask(with: catPictureURL) { (data, response, error) in
-            if let error = error {
-                print("Error downloading cat picture: \(error)")
-                completion(nil)
-            } else {
-                // No errors found.
-                // It would be weird if we didn't have a response, so check for that too.
-                if let res = response as? HTTPURLResponse {
-                    if let imageData = data {
-                        // Convert that Data into an image and do what you wish with it.
-                        let image = UIImage(data: imageData)
-                        completion(image)
-                    } else {
-                        print("Couldn't get image: Image is nil")
-                        completion(nil)
-                    }
-                } else {
-                    print("Couldn't get response code for some reason")
-                    completion(nil)
-                }
-            }
-        }
-        
-        downloadPicTask.resume()
-    }
-    
     
     func fetchAllCountriesList(completion: @escaping ([Country]?) -> Void) {
         let fullUrlString = baseURlString + Endpoints.allCountries.rawValue
