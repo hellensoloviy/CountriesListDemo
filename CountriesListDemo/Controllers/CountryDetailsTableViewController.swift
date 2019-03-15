@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class CountryDetailsTableViewController: UITableViewController {
     static let indentifier = "CountryDetailsController"
@@ -16,13 +17,9 @@ class CountryDetailsTableViewController: UITableViewController {
     @IBOutlet weak var bordersLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
 
-    @IBOutlet weak var flagImageView: UIImageView!
+    @IBOutlet weak var flagView: WKWebView!
     
-    var country: Country! {
-        didSet {
-            processNewData()
-        }
-    }
+    var country: Country!
     var bordersList: [String] = []
     
     private let defaultFlagImage = #imageLiteral(resourceName: "icon-earth-globe")
@@ -40,15 +37,11 @@ class CountryDetailsTableViewController: UITableViewController {
         
         self.nameLabel.text = "Native name: \(country.nativeName)"
         showBordersList()
+        loadAdditionalData()
     }
     
 
     //MARK: - Private
-    private func processNewData() {
-        loadAdditionalData()
-    }
-    
-    
     private func showBordersList() {
         if bordersList.isEmpty {
             self.bordersLabel.text = "No country borders to show"
@@ -58,23 +51,34 @@ class CountryDetailsTableViewController: UITableViewController {
     }
     
     private func loadAdditionalData() {
-        guard let flagStringURL = country.flag else {
-            flagImageView.image = defaultFlagImage
+        self.flagView.contentMode = .scaleAspectFill
+        
+        guard let flagStringURL = country.flag, let url = URL.init(string: flagStringURL) else {
+            let defaultPath = Bundle.main.path(forResource: "icon-earth-globe", ofType: "png")!
+            let fileURL = URL(fileURLWithPath: defaultPath)
+            let request = URLRequest(url: fileURL)
+            
+            self.flagView.load(request)
             return
         }
+    
+        let request = URLRequest(url: url)
+        self.flagView.load(request)
         
-        NetworkManager().downloadImage(for: flagStringURL) { (image) in
-            DispatchQueue.main.async {
-                if let flag = image {
-                    self.flagImageView.image = flag
-                } else {
-                    self.flagImageView.image = self.defaultFlagImage
-                }
-            }
-        }
+    }
+    
+    //MARK: - table view
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {        
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 
 }
+
+
 
 
 
