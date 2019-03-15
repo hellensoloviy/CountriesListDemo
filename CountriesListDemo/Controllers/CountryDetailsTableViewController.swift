@@ -1,5 +1,5 @@
 //
-//  CountryDetailsController.swift
+//  CountryDetailsTableViewController.swift
 //  CountriesListDemo
 //
 //  Created by Hellen Soloviy on 3/13/19.
@@ -9,14 +9,20 @@
 import Foundation
 import UIKit
 
-class CountryDetailsController: UIViewController {
+class CountryDetailsTableViewController: UITableViewController {
     static let indentifier = "CountryDetailsController"
     
     //MARK: - Properties
     @IBOutlet weak var bordersLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+
     @IBOutlet weak var flagImageView: UIImageView!
     
-    var country: Country!
+    var country: Country! {
+        didSet {
+            processNewData()
+        }
+    }
     var bordersList: [String] = []
     
     private let defaultFlagImage = #imageLiteral(resourceName: "icon-earth-globe")
@@ -26,16 +32,32 @@ class CountryDetailsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.title = country.nativeName
-        self.bordersLabel.text = bordersList.joinedWithCommas
+        self.nameLabel.text = "Native name: \(country.nativeName)"
+        showBordersList()
     }
     
-    func loadAdditionalData() {
+
+    //MARK: - Private
+    private func processNewData() {
+        loadAdditionalData()
+    }
+    
+    
+    private func showBordersList() {
+        if bordersList.isEmpty {
+            self.bordersLabel.text = "No country borders to show"
+        } else {
+            self.bordersLabel.text = "Country \(bordersList.count > 1 ? "borders are" : "border is") \(bordersList.joinedWithCommas)"
+        }
+    }
+    
+    private func loadAdditionalData() {
         guard let flagStringURL = country.flag else {
             flagImageView.image = defaultFlagImage
             return
@@ -54,27 +76,5 @@ class CountryDetailsController: UIViewController {
 
 }
 
-//
-////MARK: - TableView DataSource
-//extension CountryDetailsController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-//
-//        cell.textLabel!.text =
-//        cell.detailTextLabel!.text = candy.category
-//
-//        return cell
-//    }
-//
-//}
-//
-////MARK: - TableView Delegate
-//extension CountryDetailsController: UITableViewDelegate {
-//
-//}
 
 

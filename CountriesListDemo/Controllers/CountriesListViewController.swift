@@ -17,6 +17,8 @@ class CountriesListViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
 
     let searchController = UISearchController(searchResultsController: nil)
+    
+    //all countries
     var countries: [Country] = [] {
         didSet{
             //This is done because of not main thread possibiity. UI related methods must be called only from main thread and this will garantee this.
@@ -29,7 +31,6 @@ class CountriesListViewController: UIViewController {
     //countries after search
     var filteredCountries: [Country] = []  {
         didSet{
-            //This is done because of not main thread possibiity. UI related methods must be called only from main thread and this will garantee this.
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -41,6 +42,7 @@ class CountriesListViewController: UIViewController {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
+    //MARK: - private vars
     private let detailsSegueIdentifier = "showCountryDetailsSegue"
 
     
@@ -52,6 +54,8 @@ class CountriesListViewController: UIViewController {
         NetworkManager().fetchAllCountriesList { (countriesFromRequest) in
             self.countries = countriesFromRequest ?? []
         }
+        
+        tableView.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +68,7 @@ class CountriesListViewController: UIViewController {
     
     // MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail", let vc = segue.destination as? CountryDetailsController {
+        if segue.identifier == detailsSegueIdentifier, let vc = segue.destination as? CountryDetailsTableViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let country: Country
                 if isFiltering() {
@@ -72,7 +76,10 @@ class CountriesListViewController: UIViewController {
                 } else {
                     country = countries[indexPath.row]
                 }
+
                 vc.country = country
+                vc.bordersList = self.processBordersList(for: country)
+
                 vc.navigationItem.leftItemsSupplementBackButton = true
             }
         }
@@ -110,6 +117,18 @@ class CountriesListViewController: UIViewController {
             return filteredCountries[index]
         } else {
             return countries[index]
+        }
+    }
+    
+    private func processBordersList(for country: Country) -> [String] {
+        if let borders = country.borders {
+            print("Country borders codes = \(borders)")
+            let bordersCountries = countries.filter { borders.contains($0.alpha3Code) }
+            let bordersFullNames = bordersCountries.map { $0.nativeName }
+            print("Country borders names = \(bordersFullNames)")
+            return bordersFullNames
+        } else {
+            return []
         }
     }
     

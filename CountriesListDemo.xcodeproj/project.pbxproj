@@ -13,7 +13,7 @@
 		9BC171412238E91C00ED5665 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BC1713F2238E91C00ED5665 /* LaunchScreen.storyboard */; };
 		9BC1714D2238EABE00ED5665 /* CountriesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC1714C2238EABE00ED5665 /* CountriesListViewController.swift */; };
 		9BC171502238EFDD00ED5665 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC1714F2238EFDD00ED5665 /* Country.swift */; };
-		9BC171562238F2CE00ED5665 /* CountryDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC171552238F2CE00ED5665 /* CountryDetailsController.swift */; };
+		9BC171562238F2CE00ED5665 /* CountryDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC171552238F2CE00ED5665 /* CountryDetailsTableViewController.swift */; };
 		9BC171592238F86F00ED5665 /* Array+Concatination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC171582238F86F00ED5665 /* Array+Concatination.swift */; };
 		9BC1715C2238FE6300ED5665 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC1715B2238FE6300ED5665 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
@@ -28,7 +28,7 @@
 		9BC171482238E97000ED5665 /* CountriesListDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CountriesListDemo.entitlements; sourceTree = "<group>"; };
 		9BC1714C2238EABE00ED5665 /* CountriesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesListViewController.swift; sourceTree = "<group>"; };
 		9BC1714F2238EFDD00ED5665 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
-		9BC171552238F2CE00ED5665 /* CountryDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailsController.swift; sourceTree = "<group>"; };
+		9BC171552238F2CE00ED5665 /* CountryDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailsTableViewController.swift; sourceTree = "<group>"; };
 		9BC171582238F86F00ED5665 /* Array+Concatination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Concatination.swift"; sourceTree = "<group>"; };
 		9BC1715B2238FE6300ED5665 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,7 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				9BC1714C2238EABE00ED5665 /* CountriesListViewController.swift */,
-				9BC171552238F2CE00ED5665 /* CountryDetailsController.swift */,
+				9BC171552238F2CE00ED5665 /* CountryDetailsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -226,7 +226,7 @@
 				9BC171372238E91A00ED5665 /* AppDelegate.swift in Sources */,
 				9BC1715C2238FE6300ED5665 /* NetworkManager.swift in Sources */,
 				9BC171592238F86F00ED5665 /* Array+Concatination.swift in Sources */,
-				9BC171562238F2CE00ED5665 /* CountryDetailsController.swift in Sources */,
+				9BC171562238F2CE00ED5665 /* CountryDetailsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
