@@ -13,5 +13,4 @@ class Country: Codable {
     var borders: [String]?
     var alpha3Code: String
     var region: String
-    var flag: String?
 }

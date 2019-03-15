@@ -45,11 +45,6 @@ class CountryDetailsTableViewController: UITableViewController {
             self.bordersLabel.text = "Country \(bordersList.count > 1 ? "borders are" : "border is") \(bordersList.joinedWithCommas)"
         }
     }
-    
-    //MARK: - table view
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
 
 }
 
