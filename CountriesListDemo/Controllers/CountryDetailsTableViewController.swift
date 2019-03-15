@@ -17,13 +17,10 @@ class CountryDetailsTableViewController: UITableViewController {
     @IBOutlet weak var bordersLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
 
-    @IBOutlet weak var flagView: WKWebView!
     
     var country: Country!
     var bordersList: [String] = []
     
-    private let defaultFlagImage = #imageLiteral(resourceName: "icon-earth-globe")
-
 
     //MARK: - View Cicle
     override func viewDidLoad() {
@@ -37,7 +34,6 @@ class CountryDetailsTableViewController: UITableViewController {
         
         self.nameLabel.text = "Native name: \(country.nativeName)"
         showBordersList()
-        loadAdditionalData()
     }
     
 
@@ -50,29 +46,8 @@ class CountryDetailsTableViewController: UITableViewController {
         }
     }
     
-    private func loadAdditionalData() {
-        self.flagView.contentMode = .scaleAspectFill
-        
-        guard let flagStringURL = country.flag, let url = URL.init(string: flagStringURL) else {
-            let defaultPath = Bundle.main.path(forResource: "icon-earth-globe", ofType: "png")!
-            let fileURL = URL(fileURLWithPath: defaultPath)
-            let request = URLRequest(url: fileURL)
-            
-            self.flagView.load(request)
-            return
-        }
-    
-        let request = URLRequest(url: url)
-        self.flagView.load(request)
-        
-    }
-    
     //MARK: - table view
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {        
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
 
